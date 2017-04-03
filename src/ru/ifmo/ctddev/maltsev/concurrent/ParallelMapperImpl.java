@@ -64,14 +64,13 @@ public class ParallelMapperImpl implements ParallelMapper {
         IntStream.range(0, list.size()).forEach(ind -> {
             synchronized (taskQueue) {
                 taskQueue.add(() -> {
-                    results.set(ind, function.apply(list.get(ind)));
-                    synchronized (counter) {
-                       if (counter.get() + 1 == list.size()) {
-                           counter.set(counter.get() + 1);
-                           counter.notify();
-                       }
-                    }
-                }
+                            results.set(ind, function.apply(list.get(ind)));
+                            synchronized (counter) {
+                                if (counter.get() + 1 == list.size())
+                                    counter.notify();
+                                counter.set(counter.get() + 1);
+                            }
+                        }
                 );
                 taskQueue.notify();
             }
