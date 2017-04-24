@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: ru.ifmo.ctddev.maltsev.implementor.Implementor
+Class-Path: .\JavaAdvanced\lib\junit-4.11.jar
+ .\JavaAdvanced\lib\hamcrest-core-1.3.jar
+ .\JavaAdvanced\lib\jsoup-1.8.1.jar
+ .\JavaAdvanced\lib\quickcheck-0.6.jar
+

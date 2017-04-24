@@ -79,7 +79,7 @@ public class JarImplementor extends Implementor implements JarImpler{
      * using a default system {@link JavaCompiler}
      *
      * @param file - descriptor of file for compilation
-     * @throws IOException .
+     * @throws IOException when impossible to close file manager
      */
     private void compileClass(File file) throws IOException {
         JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();

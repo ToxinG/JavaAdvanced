@@ -112,7 +112,7 @@ public class Implementor implements Impler {
     /**
      * Generates string representation of the package of implemented class.
      *
-     * @throws IOException .
+     * @throws IOException when impossible to write packages
      */
     private void printPackage() throws IOException {
         if (processedType.getPackage() != null) {
@@ -125,7 +125,7 @@ public class Implementor implements Impler {
      * Header is the string which contains access modifiers (this method prints <tt>public</tt>)
      * and names of implemented interfaces and extended class.
      *
-     * @throws IOException .
+     * @throws IOException when impossible to write header
      */
     private void printClassHeader() throws IOException {
         writer.write("public class " + className + " ");
@@ -141,8 +141,8 @@ public class Implementor implements Impler {
     /**
      * Generates string representation of public constructors of implemented class.
      *
-     * @throws IOException
-     * @throws info.kgeorgiy.java.advanced.implementor.ImplerException
+     * @throws IOException when impossible to write constructors
+     * @throws info.kgeorgiy.java.advanced.implementor.ImplerException when implementation generation fails
      */
     private void printConstructors() throws IOException, ImplerException {
         boolean publicConstructorExists = false;
@@ -186,7 +186,7 @@ public class Implementor implements Impler {
 
      * @param c - type token of {@link Class} methods of which should be implemented
      * @param methodSet - set of signatures of methods that are already written
-     * @throws IOException .
+     * @throws IOException when impossible to write methods
      */
     private void printMethods(Class <?> c, Set<String> methodSet) throws IOException {
         if (c == null)
@@ -345,5 +345,47 @@ public class Implementor implements Impler {
      */
     private String writeSignature (Method m) {
         return m.getName() + " (" + writeParameters(m.getParameterTypes(), m.isVarArgs()) + ")";
+    }
+
+
+    /**
+     * Creates java class and depends on command line arguments
+     * puts it in jar file
+     * <br>
+     * Usage:
+     * <br>
+     * to create java class
+     * <br>
+     * java Implementor &lt;classname&gt;
+     * <br>
+     * to create jar file
+     * <br>
+     * java -jar &lt;classname&gt; &lt;filename&gt;
+     * <br>
+     * @param args program arguments
+     */
+    public static void main(String[] args) {
+        if (args == null || (args.length != 1 && args.length != 3) || (args.length == 1 && args[0] != null)
+                || (args.length == 3 && args[0] != null && args[1] != null && args[2] != null)) {
+            System.err.println("Usage: java Implementor <classname>\n        java -jar <classname> <filename>");
+        }
+        boolean jarFlag = args[0].equals("-jar");
+
+        try {
+            String className;
+            if (jarFlag) {
+                className = args[1];
+            } else {
+                className = args[0];
+            }
+            Class c = Class.forName(className);
+            if (jarFlag) {
+                (new JarImplementor()).implementJar(c, Paths.get(args[2]));
+            } else {
+                (new Implementor()).implement(c, Paths.get("."));
+            }
+        } catch (ClassNotFoundException | ImplerException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -3,9 +3,37 @@
 
 [Условия домашних заданий](http://www.kgeorgiy.info/courses/java-advanced/homeworks.html)
 
+Домашнее задание 9. HelloUDP
+----
+* Протестировать клиент:
+
+        info.kgeorgiy.java.advanced.hello.Tester client <полное имя класса>
+
+* Протестировать сервер:
+
+        info.kgeorgiy.java.advanced.hello.Tester server <полное имя класса>
+
+Исходный код тестов:
+
+* [Клиента](java/info/kgeorgiy/java/advanced/hello/HelloClientTest.java)
+* [Сервера](java/info/kgeorgiy/java/advanced/hello/HelloServerTest.java)
+
+
 Домашнее задание 8. Web Crawler
 ----
+* Протестировать простую версию задания:
+
+        info.kgeorgiy.java.advanced.crawler.Tester easy <полное имя класса>
+
+* Протестировать сложную версию задания:
+
+        info.kgeorgiy.java.advanced.crawler.Tester hard <полное имя класса>
+
+Исходный код тестов:
+
 * [Интерфейсы и вспомогательные классы](java/info/kgeorgiy/java/advanced/crawler/)
+* [Простой вариант](java/info/kgeorgiy/java/advanced/crawler/CrawlerEasyTest.java)
+* [Сложный вариант](java/info/kgeorgiy/java/advanced/crawler/CrawlerHardTest.java)
 
 
 Домашнее задание 7. Параллельный запуск
